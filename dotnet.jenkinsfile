@@ -1,0 +1,23 @@
+pipeline {
+    agent {label 'SHOPIZER'}
+    triggers {'* * * * *'}
+    stages {
+        stage('vcs') {
+            steps {
+                git branch: 'master',
+                        url: 'https://github.com/maheshryali/dotnetcore-docs-hello-world.git'
+            }
+        }
+        stage('build') {
+            steps {
+                sh 'dotnet build dotnetcoresample.csproj'
+                sh 'dotnet publish dotnetcoresample.csproj'
+            }
+        }
+        stage('archieve') {
+            steps {
+                archieve ('/home/ubuntu/dotnetcore-docs-hello-world/bin/Debug/net6.0/publish')
+            }
+        }
+    }
+}
