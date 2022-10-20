@@ -1,6 +1,6 @@
 pipeline {
     agent {label 'SHOPIZER'}
-    triggers {'* * * * *'}
+    triggers {pollSCM ('* * * * *')}
     stages {
         stage('vcs') {
             steps {
